@@ -36,7 +36,7 @@ def processRequest(req):
     if time is None:
         return {}
     
-    res = makeWebhookResult()
+    res = makeWebhookResult(time)
     return res
 
 
@@ -50,10 +50,10 @@ def makeYqlQuery(req):
     return "time"
 
 
-def makeWebhookResult():
+def makeWebhookResult(time):
     # print(json.dumps(item, indent=4))
 
-    speech = "hello"
+    speech = "hello" + time
 
     print("Response:")
     print(speech)

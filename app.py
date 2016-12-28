@@ -47,13 +47,13 @@ def makeYqlQuery(req):
     if time is None:
         return None
 
-    return "time"
+    return time
 
 
 def makeWebhookResult(time):
     # print(json.dumps(item, indent=4))
 
-    speech = "hello" + time
+    speech = "hello " + time
 
     print("Response:")
     print(speech)

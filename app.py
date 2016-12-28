@@ -31,7 +31,7 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "apagado":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    f = urllib.urlopen("xurxo.chickenkiller.com:301/manual")
     time = makeYqlQuery(req)
     if time is None:
         return {}

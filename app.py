@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 
 import urllib
@@ -27,8 +28,59 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+	def processRequest(req):
+	if req.get("result").get("action") != "apagado":
+        return {}
+    baseurl = "http://xurxo.chickenkiller.com:301/"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}	
+    yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
+    result = urllib.urlopen(yql_url).read()
+    data = json.loads(result)
+    res = makeWebhookResult(data)
+    return res
+	
+	def makeYqlQuery(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    time = parameters.get("time")
+    if time is None:
+        return None
 
-def processRequest(req):
+    return "time"
+	
+	
+	
+	def makeWebhookResult(data):
+
+    # print(json.dumps(item, indent=4))
+
+    speech = "hola "  + time
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+
+
+if __name__ == '__main__':
+    port = int(os.getenv('PORT', 5000))
+
+    print "Starting app on port %d" % port
+
+    app.run(debug=False, port=port, host='0.0.0.0')
+	
+	
+	
+	
+"""def processRequest(req):
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -98,3 +150,4 @@ if __name__ == '__main__':
     print "Starting app on port %d" % port
 
     app.run(debug=False, port=port, host='0.0.0.0')
+"""
